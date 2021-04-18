@@ -151,78 +151,80 @@ list
     return time.text
     
 
-
-news_request = input('Would you like to hear the latest news about weather? Enter 1 for yes, else for no, or exit：')
-if news_request == '1':
-    print('-'*20)
-    print('Weather News!')
-    print('-'*20)
-    news_list = get_weather_news()
-    for i in news_list:
-        print(i)
-    print('-'*20)
-elif news_request == 'exit':
-    sys.exit()
-
-v = True
-
-while v:
-    v = False
-    zc = input('Please enter a zipcode(e.g. 48105):, or else for exit: ')
-    if zc.isnumeric and len(zc) == 5:
-        today_obj = zipcode_get_today_weather(zc)
+def main():
+    news_request = input('Would you like to hear the latest news about weather? Enter 1 for yes, else for no, or exit：')
+    if news_request == '1':
         print('-'*20)
-        print('Today Weather!')
+        print('Weather News!')
         print('-'*20)
-        print('Temperature: ' + today_obj.temp)
-        print('Wind: ' + today_obj.wind)
-        print('Humidity: ' + today_obj.humidity)
-        print('Precipitation: ' + today_obj.precip)
+        news_list = get_weather_news()
+        for i in news_list:
+            print(i)
         print('-'*20)
-    else:
+    elif news_request == 'exit':
         sys.exit()
 
-    x = True
-    while x:
-        
-        print('Do you need weather info for a different time period?')
-        tp = input('1 for hourly, 2 for 10 days, 3 for weekend, back for another zipcode search, or else for exit: ')
-        if tp == '1':
-            print('-'*20)
-            print('Hourly Weather!')
-            print('-'*20)
-            hw = get_hourly_weather(zc)
-            for i in hw:
-                print(i)
-            print('-'*20)
-        elif tp == '2':
-            print('-'*20)
-            print('10 Day Weather!')
-            print('-'*20)
-            hw = get_10days_weather(zc)
-            for i in hw:
-                print(i)
-            print('-'*20)
+    v = True
 
-        elif tp == '3':
+    while v:
+        v = False
+        zc = input('Please enter a zipcode(e.g. 48105):, or else for exit: ')
+        if zc.isnumeric and len(zc) == 5:
+            today_obj = zipcode_get_today_weather(zc)
             print('-'*20)
-            print('Weekend Weather!')
+            print('Today Weather!')
             print('-'*20)
-            hw = get_weekend_weather(zc)
-            print(hw)
+            print('Temperature: ' + today_obj.temp)
+            print('Wind: ' + today_obj.wind)
+            print('Humidity: ' + today_obj.humidity)
+            print('Precipitation: ' + today_obj.precip)
             print('-'*20)
-
-        elif tp == 'back':
-            x = False
-            v = True
-
         else:
             sys.exit()
 
+        x = True
+        while x:
+            
+            print('Do you need weather info for a different time period?')
+            tp = input('1 for hourly, 2 for 10 days, 3 for weekend, back for another zipcode search, or else for exit: ')
+            if tp == '1':
+                print('-'*20)
+                print('Hourly Weather!')
+                print('-'*20)
+                hw = get_hourly_weather(zc)
+                for i in hw:
+                    print(i)
+                print('-'*20)
+            elif tp == '2':
+                print('-'*20)
+                print('10 Day Weather!')
+                print('-'*20)
+                hw = get_10days_weather(zc)
+                for i in hw:
+                    print(i)
+                print('-'*20)
+
+            elif tp == '3':
+                print('-'*20)
+                print('Weekend Weather!')
+                print('-'*20)
+                hw = get_weekend_weather(zc)
+                print(hw)
+                print('-'*20)
+
+            elif tp == 'back':
+                x = False
+                v = True
+
+            else:
+                sys.exit()
+
         
 
 
-
+if __name__ == "__main__":
+    
+    main()
 
 
 
