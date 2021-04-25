@@ -9,6 +9,46 @@ import json
 import sys
 
 
+filename = 'final_proj.json'
+def open_cache():
+    '''opens the cache file if it exists, or creates one if it doesn't exist
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    cache file: list
+    '''
+    try:
+        file = open(filename,'r')
+        contents = file.read()
+        cache_list = json.loads(contents)
+        file.close()
+    except:
+        cache_list = []
+
+    return cache_list
+
+def save_cache(cache_list):
+    '''saves the cache file
+
+    Parameters
+    ----------
+    cache_list: list
+
+    Returns
+    -------
+    None
+    '''
+    with open(filename,'w') as fp:
+
+        json.dump(cache_list,fp)
+    
+
+
+cache = open_cache()
 
 class weatherinfo:
     '''weather details
@@ -153,13 +193,19 @@ list
 
 def main():
     news_request = input('Would you like to hear the latest news about weather? Enter 1 for yes, else for no, or exit：')
+    
     if news_request == '1':
         print('-'*20)
         print('Weather News!')
         print('-'*20)
         news_list = get_weather_news()
         for i in news_list:
-            print(i)
+            if i not in cache:
+                cache.append(i)
+                save_cache(cache)
+                print(i)
+            else:
+                print(i)
         print('-'*20)
     elif news_request == 'exit':
         sys.exit()
